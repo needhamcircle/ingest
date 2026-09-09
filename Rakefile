@@ -34,8 +34,12 @@ namespace :sync do
 
   NeedhamCircle::Sync.fetchers.each do |fetcher|
     name = NeedhamCircle::Sync.name_for(fetcher)
+
     desc "Sync #{name} events into the public Google Calendar"
     task(name.to_sym) { run_sync(fetcher) }
+
+    desc "Print #{name} events as JSON"
+    task("#{name}:json".to_sym) { puts(JSON.pretty_generate(fetcher.new.fetch_events)) }
   end
 
   desc "Print the sync source names as a JSON array (drives the CI matrix)"

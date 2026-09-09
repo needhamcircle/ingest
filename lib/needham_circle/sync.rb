@@ -50,7 +50,11 @@ module NeedhamCircle
         :end_at,
         :timezone,
         keyword_init: true
-      )
+      ) do
+        def to_json(*opts)
+          to_h.to_json(*opts)
+        end
+      end
 
     # Identifiable User-Agent for all outbound fetches. Ruby's default
     # "User-Agent: Ruby" is opaque and CivicPlus 404s it.
